@@ -92,6 +92,18 @@ public class ClasseDAO<T> {
 
         return llista;
     }
+    
+    public List<T> obtenLlistaPescadors() throws HibernateException {
+        List<T> llista = null;
+        try {
+            iniciaOperacio();
+            llista = sesion.createQuery("from Pescador").list();
+        } finally {
+            sesion.close();
+        }
+
+        return llista;
+    }
 
     private void iniciaOperacio() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();

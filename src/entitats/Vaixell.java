@@ -11,9 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -32,6 +36,7 @@ public class Vaixell {
     private int _3_anys;
     
     @OneToOne(optional=true)
+    @PrimaryKeyJoinColumn
     private Pescador _4_capita;
     
     @Transient

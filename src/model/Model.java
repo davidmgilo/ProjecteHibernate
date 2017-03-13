@@ -27,7 +27,7 @@ public class Model {
     }
     
     private void actualitzaLlistes(){
-        pescadors = (ArrayList) pescador.obtenLlista();
+        pescadors = (ArrayList) vaixell.obtenLlistaPescadors();
         vaixells = (ArrayList) vaixell.obtenLlista();
         
 //        for (int i=0;i<vaixells.size();i++){

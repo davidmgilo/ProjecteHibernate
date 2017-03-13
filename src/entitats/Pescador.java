@@ -5,47 +5,63 @@
  */
 package entitats;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  *
  * @author alumne
  */
+@Entity
+@Table(name = "pescadors")
 public class Pescador { 
-    private int id;
-    private String nom;
-    private int experiencia;
+    @Id 
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
+    private int _1_id;
+    @Column(name="nom")
+    private String _2_nom;
+    @Column(name="experiencia")
+    private int _3_experiencia;
     
-    private Vaixell vaixell;
+    @Transient
+    private Vaixell _4_vaixell;
 
-    public int getId() {
-        return id;
+    public int get1_id() {
+        return _1_id;
     }
 
-    private void setId(int id) {
-        this.id = id;
+    private void set1_id(int id) {
+        this._1_id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String get2_nom() {
+        return _2_nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void set2_nom(String nom) {
+        this._2_nom = nom;
     }
 
-    public int getExperiencia() {
-        return experiencia;
+    public int get3_experiencia() {
+        return _3_experiencia;
     }
 
-    public void setExperiencia(int experiencia) {
-        this.experiencia = experiencia;
+    public void set3_experiencia(int experiencia) {
+        this._3_experiencia = experiencia;
     }
 
-    public Vaixell getVaixell() {
-        return vaixell;
+    public Vaixell get4_vaixell() {
+        return _4_vaixell;
     }
 
-    public void setVaixell(Vaixell vaixell) {
-        this.vaixell = vaixell;
+    public void set4_vaixell(Vaixell vaixell) {
+        this._4_vaixell = vaixell;
     }
     
     

@@ -72,8 +72,8 @@ public class Pescador {
     public Pescador() {
     }   
 
-    @Override
-    public String toString() {
-        return "Pescador{" + "_1_id=" + _1_id + ", _2_nom=" + _2_nom + ", _3_experiencia=" + _3_experiencia + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return _2_nom;
+//    }
 }

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import entitats.Pescador;
 import entitats.Vaixell;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ import java.util.Comparator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -39,17 +41,20 @@ public class Controlador {
     private Vista v;
     private Model m;
     private int filasel = -1;
+    private int filaselPesc = -1;
     
     public Controlador(Vista v, Model m){
         this.m = m;
         this.v = v;
         carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
         v.setVisible(true);
         control();
     }
     
     private void carregaTaula(ArrayList resultSet, JTable table, Class<?> classe) {
-        filasel = -1;
+        if(classe == Vaixell.class) filasel = -1;
+        if(classe == Pescador.class) filaselPesc = -1;
 
         Vector columnNames = new Vector();
         Vector data = new Vector();
@@ -123,7 +128,12 @@ public class Controlador {
             //Amagar la columna amb la referència a l'objecte
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
+//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
+        }
+        
+        if(classe == Pescador.class){
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
+            emplenaComboBox(resultSet, v.getCapitansComboBox());
         }
         
     }
@@ -162,9 +172,15 @@ public class Controlador {
                 if(filasel == -1){
                     v.getNomVaixellTextField().setText("");
                     v.getAnysVaixellTextField().setText("");
+                    v.getCapitansComboBox().setSelectedItem(null);
                 }else{
                     v.getNomVaixellTextField().setText((String)v.getVaixellTable().getValueAt(filasel, 1));
                     v.getAnysVaixellTextField().setText(v.getVaixellTable().getValueAt(filasel, 2).toString());
+                    Pescador p = (Pescador)v.getVaixellTable().getValueAt(filasel, 3);
+                    Pescador p2 = m.getPescadors().get(1);
+                    v.getCapitansComboBox().setSelectedItem(
+                            v.getVaixellTable().getValueAt(filasel, 3) == null ?
+                                    null : (Pescador)v.getVaixellTable().getValueAt(filasel, 3));
                 }
             }
             
@@ -232,6 +248,20 @@ public class Controlador {
             
         });
         
+        v.getViewPescadorsButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                v.getjPanel1().removeAll();
+                v.getjPanel1().repaint();
+                v.getjPanel1().revalidate();
+                
+                v.getjPanel1().add(v.getPescadorPanel());
+                v.getjPanel1().repaint();
+                v.getjPanel1().revalidate();
+            }
+            
+        });
+        
         v.getExitButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -239,7 +269,14 @@ public class Controlador {
             } 
         });
     }
-    
+
+    private void emplenaComboBox(ArrayList resultSet, JComboBox<Pescador> ComboBox) {
+        ComboBox.addItem(null);
+        for (Object m : resultSet){
+            ComboBox.addItem((Pescador)m);
+        }
+    }
+   
     // Classe "niada" (nested class, clase anidada) usada per ordenar els camps de les classes alfabèticament
     public static class OrdenarCampClasseAlfabeticament implements Comparator {
 

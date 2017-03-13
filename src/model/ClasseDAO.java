@@ -24,6 +24,11 @@ public class ClasseDAO<T> {
 
     public ClasseDAO(Class<T> p) {
         this.p = p;
+        iniciaOperacio();
+    }
+    
+    public void tancaSessio(){
+        sesion.close();
     }
     
     public long guarda(T objecte) throws HibernateException {
@@ -83,25 +88,14 @@ public class ClasseDAO<T> {
 
     public List<T> obtenLlista() throws HibernateException {
         List<T> llista = null;
-        try {
-            iniciaOperacio();
             llista = sesion.createQuery("from "+p.getSimpleName()).list();
-        } finally {
-            sesion.close();
-        }
 
         return llista;
     }
     
     public List<T> obtenLlistaPescadors() throws HibernateException {
         List<T> llista = null;
-        try {
-            iniciaOperacio();
             llista = sesion.createQuery("from Pescador").list();
-        } finally {
-            sesion.close();
-        }
-
         return llista;
     }
 

@@ -36,7 +36,6 @@ public class Vaixell {
     private int _3_anys;
     
     @OneToOne(optional=true)
-    @PrimaryKeyJoinColumn
     private Pescador _4_capita;
     
     @Transient

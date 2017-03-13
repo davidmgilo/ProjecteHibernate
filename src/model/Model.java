@@ -87,4 +87,8 @@ public class Model {
         System.out.println(e.getMessage());
     }
     
+    public void tancaSessio() {
+        vaixell.tancaSessio();
+    }
+    
 }

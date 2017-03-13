@@ -63,7 +63,17 @@ public class Pescador {
     public void set4_vaixell(Vaixell vaixell) {
         this._4_vaixell = vaixell;
     }
-    
-    
-    
+
+    public Pescador(String _2_nom, int _3_experiencia) {
+        this._2_nom = _2_nom;
+        this._3_experiencia = _3_experiencia;
+    }
+
+    public Pescador() {
+    }   
+
+    @Override
+    public String toString() {
+        return "Pescador{" + "_1_id=" + _1_id + ", _2_nom=" + _2_nom + ", _3_experiencia=" + _3_experiencia + '}';
+    }
 }

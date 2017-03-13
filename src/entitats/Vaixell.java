@@ -31,7 +31,7 @@ public class Vaixell {
     @Column(name = "anys_veterania")
     private int _3_anys;
     
-    @OneToOne(optional=true) 
+    @OneToOne(optional=true)
     private Pescador _4_capita;
     
     @Transient

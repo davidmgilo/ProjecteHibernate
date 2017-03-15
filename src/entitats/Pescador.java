@@ -72,8 +72,8 @@ public class Pescador {
     public Pescador() {
     }   
 
-//    @Override
-//    public String toString() {
-//        return _2_nom;
-//    }
+    @Override
+    public String toString() {
+        return _2_nom;
+    }
 }

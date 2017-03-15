@@ -142,6 +142,7 @@ public class Controlador {
         v.addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosed(WindowEvent e) {
+                m.finalitza();
                 System.exit(0);
             }
             
@@ -156,6 +157,9 @@ public class Controlador {
                        Integer.valueOf(v.getAnysVaixellTextField().getText())
                    );
                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                   v.getNomVaixellTextField().setText("");
+                   v.getAnysVaixellTextField().setText("");
+                   v.getCapitansComboBox().setSelectedItem(null);
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
                }
@@ -176,8 +180,6 @@ public class Controlador {
                 }else{
                     v.getNomVaixellTextField().setText((String)v.getVaixellTable().getValueAt(filasel, 1));
                     v.getAnysVaixellTextField().setText(v.getVaixellTable().getValueAt(filasel, 2).toString());
-                    Pescador p = (Pescador)v.getVaixellTable().getValueAt(filasel, 3);
-                    Pescador p2 = m.getPescadors().get(1);
                     v.getCapitansComboBox().setSelectedItem(
                             v.getVaixellTable().getValueAt(filasel, 3) == null ?
                                     null : (Pescador)v.getVaixellTable().getValueAt(filasel, 3));
@@ -185,7 +187,7 @@ public class Controlador {
             }
             
         });
-        
+                
         v.getModificaVaixellButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -265,6 +267,7 @@ public class Controlador {
         v.getExitButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                m.finalitza();
                 System.exit(0);
             } 
         });

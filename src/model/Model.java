@@ -10,6 +10,8 @@ import entitats.Vaixell;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import utils.HibernateUtil;
 
 /**
  *
@@ -17,10 +19,11 @@ import org.hibernate.HibernateException;
  */
 public class Model {
     
+    private static Session sesion = HibernateUtil.getSessionFactory().openSession();
     private ArrayList<Vaixell> vaixells = new ArrayList();
-    private ClasseDAO<Vaixell> vaixell = new ClasseDAO<>(Vaixell.class);
+    private ClasseDAO<Vaixell> vaixell = new ClasseDAO<>(Vaixell.class, sesion);
     private ArrayList<Pescador> pescadors = new ArrayList();
-    private ClasseDAO<Pescador> pescador = new ClasseDAO<>(Pescador.class);
+    private ClasseDAO<Pescador> pescador = new ClasseDAO<>(Pescador.class, sesion);
     
     public Model(){
         actualitzaLlistes();
@@ -85,6 +88,14 @@ public class Model {
 
     private void tractaExcepcio(HibernateException e) {
         System.out.println(e.getMessage());
+    }
+    
+    public void finalitza(){
+        try {
+            sesion.close();
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }        
     }
     
 }

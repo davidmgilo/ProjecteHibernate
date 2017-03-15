@@ -22,8 +22,9 @@ public class ClasseDAO<T> {
     
     private Class p;
 
-    public ClasseDAO(Class<T> p) {
+    public ClasseDAO(Class<T> p, Session sesion) {
         this.p = p;
+        this.sesion=sesion;
     }
     
     public long guarda(T objecte) throws HibernateException {
@@ -36,8 +37,6 @@ public class ClasseDAO<T> {
         } catch (HibernateException he) {
             tractaExcepcio(he);
             throw he;
-        } finally {
-            sesion.close();
         }
 
         return id;
@@ -51,9 +50,7 @@ public class ClasseDAO<T> {
         } catch (HibernateException he) {
             tractaExcepcio(he);
             throw he;
-        } finally {
-            sesion.close();
-        }
+        } 
     }
 
     public void elimina(T objecte) throws HibernateException {
@@ -64,9 +61,7 @@ public class ClasseDAO<T> {
         } catch (HibernateException he) {
             tractaExcepcio(he);
             throw he;
-        } finally {
-            sesion.close();
-        }
+        } 
     }
 
     public T obte(int idObjecte) throws HibernateException {
@@ -74,8 +69,10 @@ public class ClasseDAO<T> {
         try {
             iniciaOperacio();
             objecte = (T) sesion.get(p, idObjecte);
-        } finally {
-            sesion.close();
+            tx.commit();
+        } catch (HibernateException he) {
+            tractaExcepcio(he);
+            throw he;
         }
 
         return objecte;
@@ -86,15 +83,16 @@ public class ClasseDAO<T> {
         try {
             iniciaOperacio();
             llista = sesion.createQuery("from "+p.getSimpleName()).list();
-        } finally {
-            sesion.close();
+            tx.commit();
+        } catch (HibernateException he) {
+            tractaExcepcio(he);
+            throw he;
         }
 
         return llista;
     }
 
     private void iniciaOperacio() throws HibernateException {
-        sesion = HibernateUtil.getSessionFactory().openSession();
         tx = sesion.beginTransaction();
     }
 

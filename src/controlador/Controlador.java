@@ -157,9 +157,7 @@ public class Controlador {
                        Integer.valueOf(v.getAnysVaixellTextField().getText())
                    );
                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                   v.getNomVaixellTextField().setText("");
-                   v.getAnysVaixellTextField().setText("");
-                   v.getCapitansComboBox().setSelectedItem(null);
+                   netejaVaixells();
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
                }
@@ -174,9 +172,7 @@ public class Controlador {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 filasel = v.getVaixellTable().getSelectedRow();
                 if(filasel == -1){
-                    v.getNomVaixellTextField().setText("");
-                    v.getAnysVaixellTextField().setText("");
-                    v.getCapitansComboBox().setSelectedItem(null);
+                    netejaVaixells();
                 }else{
                     v.getNomVaixellTextField().setText((String)v.getVaixellTable().getValueAt(filasel, 1));
                     v.getAnysVaixellTextField().setText(v.getVaixellTable().getValueAt(filasel, 2).toString());
@@ -196,15 +192,17 @@ public class Controlador {
                         m.modificaVaixell(
                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
                            v.getNomVaixellTextField().getText(), 
-                           Integer.valueOf(v.getAnysVaixellTextField().getText())
+                           Integer.valueOf(v.getAnysVaixellTextField().getText()),
+                           (Pescador) v.getCapitansComboBox().getSelectedItem()       
                         );
                         carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                        netejaVaixells();
                    } 
                    else 
                         JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.","Error",JOptionPane.ERROR_MESSAGE);
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
-               } 
+               }
             }
             
         });
@@ -215,6 +213,7 @@ public class Controlador {
                 if(filasel != -1){
                     m.eliminaVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
                     carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                    netejaVaixells();
                 } 
                 else 
                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.","Error",JOptionPane.ERROR_MESSAGE);
@@ -271,6 +270,42 @@ public class Controlador {
                 System.exit(0);
             } 
         });
+        
+        v.getAssignaCapitaButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(v.getCapitansComboBox().getSelectedItem() != null && filasel != -1){
+                    m.assignaCapita(
+                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
+                           (Pescador) v.getCapitansComboBox().getSelectedItem() 
+                    );
+                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                    netejaVaixells();
+                }else{
+                    JOptionPane.showMessageDialog(v, "Cal seleccionar un capità vàlid amb un vaixell seleccionat.","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+                
+        });
+        
+        v.getNoCapitaButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(filasel != -1){
+                    m.assignaCapita(
+                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
+                           null 
+                    );
+                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                    netejaVaixells();
+                }else {
+                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre.","Error",JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
+            }
+            
+        });
     }
 
     private void emplenaComboBox(ArrayList resultSet, JComboBox<Pescador> ComboBox) {
@@ -278,6 +313,12 @@ public class Controlador {
         for (Object m : resultSet){
             ComboBox.addItem((Pescador)m);
         }
+    }
+    
+    private void netejaVaixells(){
+        v.getNomVaixellTextField().setText("");
+        v.getAnysVaixellTextField().setText("");
+        v.getCapitansComboBox().setSelectedItem(null);
     }
    
     // Classe "niada" (nested class, clase anidada) usada per ordenar els camps de les classes alfabèticament

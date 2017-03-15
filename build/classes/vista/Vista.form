@@ -165,9 +165,9 @@
                               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -179,17 +179,19 @@
                                           <Component id="anysVaixellTextField" min="-2" pref="106" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="capitansComboBox" min="-2" pref="106" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="capitansComboBox" min="-2" pref="106" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="noCapitaButton" pref="197" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="creaVaixellButton" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="eliminaVaixellButton" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="modificaVaixellButton" pref="197" max="32767" attributes="0"/>
-                                      <Component id="assignaCapitaButton" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="creaVaixellButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="eliminaVaixellButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="modificaVaixellButton" pref="197" max="32767" attributes="0"/>
+                                  <Component id="assignaCapitaButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -227,6 +229,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="assignaCapitaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="capitansComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="noCapitaButton" min="-2" max="-2" attributes="0"/>
@@ -307,6 +310,11 @@
             <Component class="javax.swing.JButton" name="noCapitaButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Desassigna capit&#xe0;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Capit&#xe0;:"/>
               </Properties>
             </Component>
           </SubComponents>

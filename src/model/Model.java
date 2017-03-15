@@ -8,7 +8,6 @@ package model;
 import entitats.Pescador;
 import entitats.Vaixell;
 import java.util.ArrayList;
-import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -62,12 +61,13 @@ public class Model {
         actualitzaLlistes();
     }
     
-    public void modificaVaixell(int id, String nom, int anys){
+    public void modificaVaixell(int id, String nom, int anys, Pescador capità){
         Vaixell modificat = null;
         try{
             modificat = (Vaixell) vaixell.obte(id);
             modificat.set2_nom(nom);
             modificat.set3_anys(anys);
+            modificat.set4_capita(capità);
             vaixell.actualitza(modificat);    
         }catch(HibernateException e){
             tractaExcepcio(e);
@@ -80,6 +80,18 @@ public class Model {
         try{
             elimina = (Vaixell) vaixell.obte(id);
             vaixell.elimina(elimina);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    public void assignaCapita (int id, Pescador capità){
+        Vaixell modificat = null;
+        try{
+            modificat = (Vaixell) vaixell.obte(id);
+            modificat.set4_capita(capità);
+            vaixell.actualitza(modificat);    
         }catch(HibernateException e){
             tractaExcepcio(e);
         }

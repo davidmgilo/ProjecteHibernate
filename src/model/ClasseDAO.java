@@ -9,7 +9,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import utils.HibernateUtil;
 
 /**
  *
@@ -82,7 +81,7 @@ public class ClasseDAO<T> {
         List<T> llista = null;
         try {
             iniciaOperacio();
-            llista = sesion.createQuery("from "+p.getSimpleName()).list();
+            llista = sesion.createQuery("from "+p.getSimpleName()+" ORDER BY 1").list();
             tx.commit();
         } catch (HibernateException he) {
             tractaExcepcio(he);

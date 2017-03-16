@@ -125,7 +125,7 @@ public class Controlador {
         }
         
         if(classe == Vaixell.class){
-            //Amagar la columna amb la referència a l'objecte
+            //Amagar la columna amb la referència a les relacions
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
 //            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
@@ -306,9 +306,78 @@ public class Controlador {
             }
             
         });
+        
+        v.getCreaPescadorButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                   m.creaPescador(
+                           v.getNomPescadorTextField().getText(), 
+                           Integer.valueOf(v.getExperienciaPescadorTextField().getText())
+                   );
+                   carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                   netejaPescadors();
+               }catch(NumberFormatException ex){
+                   JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
+               }
+            }
+            
+        });
+        
+        v.getEliminaPescadorButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(filaselPesc != -1){
+                    m.eliminaPescador(Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()));
+                    carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                    netejaPescadors();
+                } 
+                else 
+                   JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            
+        });
+        
+        v.getPescadorsTable().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                filaselPesc = v.getPescadorsTable().getSelectedRow();
+                if(filaselPesc == -1){
+                    netejaPescadors();
+                }else{
+                    v.getNomPescadorTextField().setText(v.getPescadorsTable().getValueAt(filaselPesc, 1).toString());
+                    v.getExperienciaPescadorTextField().setText(v.getPescadorsTable().getValueAt(filaselPesc, 2).toString());
+                }
+            }
+            
+        });
+        
+        v.getModificaPescadorButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                   if(filaselPesc != -1){
+                        m.modificaPescador(
+                               Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()), 
+                               v.getNomPescadorTextField().getText(), 
+                           Integer.valueOf(v.getExperienciaPescadorTextField().getText())
+                        );
+                        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                        netejaPescadors();
+                   } 
+                   else 
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.","Error",JOptionPane.ERROR_MESSAGE);
+               }catch(NumberFormatException ex){
+                   JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
+               }
+            }
+            
+        });
     }
 
     private void emplenaComboBox(ArrayList resultSet, JComboBox<Pescador> ComboBox) {
+        ComboBox.removeAllItems();
         ComboBox.addItem(null);
         for (Object m : resultSet){
             ComboBox.addItem((Pescador)m);
@@ -319,6 +388,11 @@ public class Controlador {
         v.getNomVaixellTextField().setText("");
         v.getAnysVaixellTextField().setText("");
         v.getCapitansComboBox().setSelectedItem(null);
+    }
+    
+    private void netejaPescadors(){
+        v.getNomPescadorTextField().setText("");
+        v.getExperienciaPescadorTextField().setText("");
     }
    
     // Classe "niada" (nested class, clase anidada) usada per ordenar els camps de les classes alfabèticament

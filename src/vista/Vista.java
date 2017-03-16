@@ -59,10 +59,18 @@ public class Vista extends javax.swing.JFrame {
         pescadorPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pescadorsTable = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        nomPescadorTextField = new javax.swing.JTextField();
+        experienciaPescadorTextField = new javax.swing.JTextField();
+        creaPescadorButton = new javax.swing.JButton();
+        eliminaPescadorButton = new javax.swing.JButton();
+        modificaPescadorButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         buttonPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        buttonPanel.setMaximumSize(new java.awt.Dimension(104, 330));
 
         viewVaixellButton.setText("Vaixell");
 
@@ -108,7 +116,7 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel3)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +165,7 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(vaixellPanelLayout.createSequentialGroup()
                 .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(vaixellPanelLayout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addGap(0, 32, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(vaixellPanelLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -189,13 +197,16 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(vaixellPanelLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vaixellPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(creaVaixellButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eliminaVaixellButton))
+                        .addComponent(eliminaVaixellButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modificaVaixellButton))
                     .addGroup(vaixellPanelLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomVaixellTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
@@ -203,8 +214,6 @@ public class Vista extends javax.swing.JFrame {
                         .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(anysVaixellTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(modificaVaixellButton)
                 .addGap(18, 18, 18)
                 .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignaCapitaButton)
@@ -231,21 +240,60 @@ public class Vista extends javax.swing.JFrame {
         pescadorsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(pescadorsTable);
 
+        jLabel5.setText("Nom:");
+
+        jLabel6.setText("Experiència:");
+
+        creaPescadorButton.setText("Crea");
+
+        eliminaPescadorButton.setText("Elimina");
+
+        modificaPescadorButton.setText("Modifica");
+
         javax.swing.GroupLayout pescadorPanelLayout = new javax.swing.GroupLayout(pescadorPanel);
         pescadorPanel.setLayout(pescadorPanelLayout);
         pescadorPanelLayout.setHorizontalGroup(
             pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pescadorPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pescadorPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pescadorPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nomPescadorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(experienciaPescadorTextField))
+                        .addGap(34, 34, 34)
+                        .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(modificaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(creaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(eliminaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         pescadorPanelLayout.setVerticalGroup(
             pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pescadorPanelLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(351, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(nomPescadorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creaPescadorButton))
+                .addGap(18, 18, 18)
+                .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(experienciaPescadorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminaPescadorButton))
+                .addGap(18, 18, 18)
+                .addComponent(modificaPescadorButton)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         jPanel1.add(pescadorPanel, "card3");
@@ -256,8 +304,8 @@ public class Vista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,20 +358,27 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JButton assignaCapitaButton;
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JComboBox<Pescador> capitansComboBox;
+    private javax.swing.JButton creaPescadorButton;
     private javax.swing.JButton creaVaixellButton;
+    private javax.swing.JButton eliminaPescadorButton;
     private javax.swing.JButton eliminaVaixellButton;
     private javax.swing.JButton exitButton;
+    private javax.swing.JTextField experienciaPescadorTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modificaPescadorButton;
     private javax.swing.JButton modificaVaixellButton;
     private javax.swing.JButton noCapitaButton;
+    private javax.swing.JTextField nomPescadorTextField;
     private javax.swing.JTextField nomVaixellTextField;
     private javax.swing.JPanel pescadorPanel;
     private javax.swing.JTable pescadorsTable;
@@ -404,6 +459,25 @@ public class Vista extends javax.swing.JFrame {
     public JButton getNoCapitaButton() {
         return noCapitaButton;
     }
-    
+
+    public JButton getCreaPescadorButton() {
+        return creaPescadorButton;
+    }
+
+    public JButton getEliminaPescadorButton() {
+        return eliminaPescadorButton;
+    }
+
+    public JTextField getExperienciaPescadorTextField() {
+        return experienciaPescadorTextField;
+    }
+
+    public JButton getModificaPescadorButton() {
+        return modificaPescadorButton;
+    }
+
+    public JTextField getNomPescadorTextField() {
+        return nomPescadorTextField;
+    }
     
 }

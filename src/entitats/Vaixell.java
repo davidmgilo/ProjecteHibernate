@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -32,6 +33,7 @@ public class Vaixell {
     private int _3_anys;
     
     @OneToOne(optional=true)
+    @JoinColumn(name = "capita")
     private Pescador _4_capita;
     
     @Transient

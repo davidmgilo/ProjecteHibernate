@@ -30,9 +30,9 @@ public class ProjecteHibernate {
         new Controlador(vista,model);
 
     }
-
-//           ClasseDAO vaixellsDAO = new ClasseDAO(Vaixell.class);
-//        ClasseDAO pescadorsDAO = new ClasseDAO(Pescador.class);
+//        Session sesion = HibernateUtil.getSessionFactory().openSession();
+//           ClasseDAO vaixellsDAO = new ClasseDAO(Vaixell.class,sesion);
+//        ClasseDAO pescadorsDAO = new ClasseDAO(Pescador.class,sesion);
 //        Vaixell contacteRecuperat = null;
 //        long idAEliminar = 0;
 //        long idAEliminarPescador = 0;
@@ -89,7 +89,9 @@ public class ProjecteHibernate {
 //            System.out.println("-> " + c.get4_capita());
 //        }
 //       
+//        sesion.close();
 //        System.exit(0);
+//    }
     
     
 }

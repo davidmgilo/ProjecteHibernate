@@ -98,6 +98,41 @@ public class Model {
         actualitzaLlistes();
     }
 
+    public void creaPescador(String nom, int anys){
+        Pescador p = new Pescador(nom,anys);
+        try{
+            pescador.guarda(p);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    public void eliminaPescador(int id){
+        Pescador elimina = null;
+        try{
+            elimina = (Pescador) pescador.obte(id);
+            pescador.elimina(elimina);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    public void modificaPescador(int id, String nom, int anys){
+        Pescador modificat = null;
+        try{
+            modificat = (Pescador) pescador.obte(id);
+            modificat.set2_nom(nom);
+            modificat.set3_experiencia(anys);
+            pescador.actualitza(modificat);    
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    
     private void tractaExcepcio(HibernateException e) {
         System.out.println(e.getMessage());
     }

@@ -51,8 +51,9 @@ public class Model {
         return pescadors;
     }
     
-    public void creaVaixell(String nom, int anys){
+    public void creaVaixell(String nom, int anys, Pescador capita){
         Vaixell vai = new Vaixell(nom,anys);
+        vai.set4_capita(capita);
         try{
             vaixell.guarda(vai);
         }catch(HibernateException e){

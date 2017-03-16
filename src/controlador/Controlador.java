@@ -154,7 +154,8 @@ public class Controlador {
                try{
                    m.creaVaixell(
                        v.getNomVaixellTextField().getText(), 
-                       Integer.valueOf(v.getAnysVaixellTextField().getText())
+                       Integer.valueOf(v.getAnysVaixellTextField().getText()),
+                       (Pescador) v.getCapitansComboBox().getSelectedItem()
                    );
                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
                    netejaVaixells();

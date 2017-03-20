@@ -349,15 +349,18 @@ public class Controlador {
         v.getEliminaPescadorButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (filaselPesc != -1) {
-                    m.eliminaPescador(Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()));
-                    carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
-                    netejaPescadors();
-                } else {
-                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                try{
+                   if (filaselPesc != -1) {
+                        m.eliminaPescador(Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()));
+                        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                        netejaPescadors();
+                    } else {
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } 
+                } catch (Exception ex){
+                    JOptionPane.showMessageDialog(v, "El registre té altres de relacionats.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
         });
 
         v.getPescadorsTable().addMouseListener(new MouseAdapter() {

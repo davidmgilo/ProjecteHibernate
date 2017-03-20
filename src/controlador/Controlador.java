@@ -38,12 +38,13 @@ import vista.Vista;
  * @author alumne
  */
 public class Controlador {
+
     private Vista v;
     private Model m;
     private int filasel = -1;
     private int filaselPesc = -1;
-    
-    public Controlador(Vista v, Model m){
+
+    public Controlador(Vista v, Model m) {
         this.m = m;
         this.v = v;
         carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
@@ -51,10 +52,14 @@ public class Controlador {
         v.setVisible(true);
         control();
     }
-    
+
     private void carregaTaula(ArrayList resultSet, JTable table, Class<?> classe) {
-        if(classe == Vaixell.class) filasel = -1;
-        if(classe == Pescador.class) filaselPesc = -1;
+        if (classe == Vaixell.class) {
+            filasel = -1;
+        }
+        if (classe == Pescador.class) {
+            filaselPesc = -1;
+        }
 
         Vector columnNames = new Vector();
         Vector data = new Vector();
@@ -103,7 +108,7 @@ public class Controlador {
                         Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
+
                 data.addElement(row);
             }
         }
@@ -115,7 +120,7 @@ public class Controlador {
             }
 
         };
-   
+
         table.setModel(model);
 
         TableColumn column;
@@ -123,279 +128,299 @@ public class Controlador {
             column = table.getColumnModel().getColumn(i);
             column.setMaxWidth(250);
         }
-        
-        if(classe == Vaixell.class){
+
+        if (classe == Vaixell.class) {
             //Amagar la columna amb la referència a les relacions
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
 //            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
         }
-        
-        if(classe == Pescador.class){
+
+        if (classe == Pescador.class) {
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
             emplenaComboBox(resultSet, v.getCapitansComboBox());
         }
-        
+
     }
 
     private void control() {
-        v.addWindowListener(new WindowAdapter(){
+        v.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 m.finalitza();
                 System.exit(0);
             }
-            
+
         });
-        
-        v.getCreaVaixellButton().addActionListener(new ActionListener(){
+
+        v.getCreaVaixellButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               try{
-                   m.creaVaixell(
-                       v.getNomVaixellTextField().getText(), 
-                       Integer.valueOf(v.getAnysVaixellTextField().getText()),
-                       (Pescador) v.getCapitansComboBox().getSelectedItem()
-                   );
-                   carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                   netejaVaixells();
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
-               }
-                 
+                if (!"".equals(v.getNomVaixellTextField().getText().trim())) {
+                    try {
+                        m.creaVaixell(
+                                v.getNomVaixellTextField().getText().trim(),
+                                Integer.valueOf(v.getAnysVaixellTextField().getText().trim()),
+                                (Pescador) v.getCapitansComboBox().getSelectedItem()
+                        );
+                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                        netejaVaixells();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
+
         });
-        
-        v.getVaixellTable().addMouseListener(new MouseAdapter(){
+
+        v.getVaixellTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 filasel = v.getVaixellTable().getSelectedRow();
-                if(filasel == -1){
+                if (filasel == -1) {
                     netejaVaixells();
-                }else{
-                    v.getNomVaixellTextField().setText((String)v.getVaixellTable().getValueAt(filasel, 1));
+                } else {
+                    v.getNomVaixellTextField().setText((String) v.getVaixellTable().getValueAt(filasel, 1));
                     v.getAnysVaixellTextField().setText(v.getVaixellTable().getValueAt(filasel, 2).toString());
                     v.getCapitansComboBox().setSelectedItem(
-                            v.getVaixellTable().getValueAt(filasel, 3) == null ?
-                                    null : (Pescador)v.getVaixellTable().getValueAt(filasel, 3));
+                            v.getVaixellTable().getValueAt(filasel, 3) == null
+                            ? null : (Pescador) v.getVaixellTable().getValueAt(filasel, 3));
                 }
             }
-            
+
         });
-                
-        v.getModificaVaixellButton().addActionListener(new ActionListener(){
+
+        v.getModificaVaixellButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               try{
-                   if(filasel != -1){
-                        m.modificaVaixell(
-                           Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
-                           v.getNomVaixellTextField().getText(), 
-                           Integer.valueOf(v.getAnysVaixellTextField().getText()),
-                           (Pescador) v.getCapitansComboBox().getSelectedItem()       
-                        );
-                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                        netejaVaixells();
-                   } 
-                   else 
-                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.","Error",JOptionPane.ERROR_MESSAGE);
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
-               }
+                try {
+                    if (filasel != -1) {
+                        if (!"".equals(v.getNomVaixellTextField().getText().trim())) {
+                            m.modificaVaixell(
+                                    Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
+                                    v.getNomVaixellTextField().getText().trim(),
+                                    Integer.valueOf(v.getAnysVaixellTextField().getText().trim()),
+                                    (Pescador) v.getCapitansComboBox().getSelectedItem()
+                            );
+                            carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                            netejaVaixells();
+                        } else {
+                            JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
-            
         });
-        
-        v.getEliminaVaixellButton().addActionListener(new ActionListener(){
+
+        v.getEliminaVaixellButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(filasel != -1){
+                if (filasel != -1) {
                     m.eliminaVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
                     carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
                     netejaVaixells();
-                } 
-                else 
-                   JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.","Error",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
+
         });
-        
-        v.getViewVaixellButton().addActionListener(new ActionListener(){
+
+        v.getViewVaixellButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 v.getjPanel1().removeAll();
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
-                
+
                 v.getjPanel1().add(v.getVaixellPanel());
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
             }
-            
+
         });
-        
-        v.getjButton1().addActionListener(new ActionListener(){
+
+        v.getjButton1().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 v.getjPanel1().removeAll();
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
-                
+
                 v.getjPanel1().add(v.getWelcomePanel());
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
             }
-            
+
         });
-        
-        v.getViewPescadorsButton().addActionListener(new ActionListener(){
+
+        v.getViewPescadorsButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 v.getjPanel1().removeAll();
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
-                
+
                 v.getjPanel1().add(v.getPescadorPanel());
                 v.getjPanel1().repaint();
                 v.getjPanel1().revalidate();
             }
-            
+
         });
-        
-        v.getExitButton().addActionListener(new ActionListener(){
+
+        v.getExitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 m.finalitza();
                 System.exit(0);
-            } 
+            }
         });
-        
-        v.getAssignaCapitaButton().addActionListener(new ActionListener(){
+
+        v.getAssignaCapitaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(v.getCapitansComboBox().getSelectedItem() != null && filasel != -1){
+                if (v.getCapitansComboBox().getSelectedItem() != null && filasel != -1) {
                     m.assignaCapita(
-                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
-                           (Pescador) v.getCapitansComboBox().getSelectedItem() 
+                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
+                            (Pescador) v.getCapitansComboBox().getSelectedItem()
                     );
                     carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
                     netejaVaixells();
-                }else{
-                    JOptionPane.showMessageDialog(v, "Cal seleccionar un capità vàlid amb un vaixell seleccionat.","Error",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(v, "Cal seleccionar un capità vàlid amb un vaixell seleccionat.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-                
+
         });
-        
-        v.getNoCapitaButton().addActionListener(new ActionListener(){
+
+        v.getNoCapitaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(filasel != -1){
-                    m.assignaCapita(
-                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()), 
-                           null 
-                    );
-                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                    netejaVaixells();
-                }else {
-                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre.","Error",JOptionPane.ERROR_MESSAGE);
+                if (filasel != -1) {
+                    if (v.getVaixellTable().getValueAt(filasel, 3) != null) {
+                        m.assignaCapita(
+                                Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
+                                null
+                        );
+                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                        netejaVaixells();
+                    } else {
+                        JOptionPane.showMessageDialog(v, "Aquest vaixell no té capità!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
-                
+
             }
-            
+
         });
-        
-        v.getCreaPescadorButton().addActionListener(new ActionListener(){
+
+        v.getCreaPescadorButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                   m.creaPescador(
-                           v.getNomPescadorTextField().getText(), 
-                           Integer.valueOf(v.getExperienciaPescadorTextField().getText())
-                   );
-                   carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
-                   netejaPescadors();
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
-               }
+                if (!"".equals(v.getNomPescadorTextField().getText().trim())) {
+                    try {
+                        m.creaPescador(
+                                v.getNomPescadorTextField().getText().trim(),
+                                Integer.valueOf(v.getExperienciaPescadorTextField().getText().trim())
+                        );
+                        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                        netejaPescadors();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
-            
+
         });
-        
-        v.getEliminaPescadorButton().addActionListener(new ActionListener(){
+
+        v.getEliminaPescadorButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(filaselPesc != -1){
+                if (filaselPesc != -1) {
                     m.eliminaPescador(Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()));
                     carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
                     netejaPescadors();
-                } 
-                else 
-                   JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.","Error",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
+
         });
-        
-        v.getPescadorsTable().addMouseListener(new MouseAdapter(){
+
+        v.getPescadorsTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 filaselPesc = v.getPescadorsTable().getSelectedRow();
-                if(filaselPesc == -1){
+                if (filaselPesc == -1) {
                     netejaPescadors();
-                }else{
+                } else {
                     v.getNomPescadorTextField().setText(v.getPescadorsTable().getValueAt(filaselPesc, 1).toString());
                     v.getExperienciaPescadorTextField().setText(v.getPescadorsTable().getValueAt(filaselPesc, 2).toString());
                 }
             }
-            
+
         });
-        
-        v.getModificaPescadorButton().addActionListener(new ActionListener(){
+
+        v.getModificaPescadorButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                   if(filaselPesc != -1){
-                        m.modificaPescador(
-                               Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()), 
-                               v.getNomPescadorTextField().getText(), 
-                           Integer.valueOf(v.getExperienciaPescadorTextField().getText())
-                        );
-                        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
-                        netejaPescadors();
-                   } 
-                   else 
-                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.","Error",JOptionPane.ERROR_MESSAGE);
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter","Error",JOptionPane.ERROR_MESSAGE);
-               }
+                try {
+                    if (filaselPesc != -1) {
+                        if (!"".equals(v.getNomPescadorTextField().getText().trim())) {
+                            m.modificaPescador(
+                                    Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()),
+                                    v.getNomPescadorTextField().getText().trim(),
+                                    Integer.valueOf(v.getExperienciaPescadorTextField().getText().trim())
+                            );
+                            carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                            netejaPescadors();
+                        } else {
+                            JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(v, "El valor d'experiencia ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
+
         });
     }
 
     private void emplenaComboBox(ArrayList resultSet, JComboBox<Pescador> ComboBox) {
         ComboBox.removeAllItems();
         ComboBox.addItem(null);
-        for (Object m : resultSet){
-            ComboBox.addItem((Pescador)m);
+        for (Object m : resultSet) {
+            ComboBox.addItem((Pescador) m);
         }
     }
-    
-    private void netejaVaixells(){
+
+    private void netejaVaixells() {
         v.getNomVaixellTextField().setText("");
         v.getAnysVaixellTextField().setText("");
         v.getCapitansComboBox().setSelectedItem(null);
     }
-    
-    private void netejaPescadors(){
+
+    private void netejaPescadors() {
         v.getNomPescadorTextField().setText("");
         v.getExperienciaPescadorTextField().setText("");
     }
-   
+
     // Classe "niada" (nested class, clase anidada) usada per ordenar els camps de les classes alfabèticament
     public static class OrdenarCampClasseAlfabeticament implements Comparator {
 
@@ -424,5 +449,5 @@ public class Controlador {
             }
         }
     }
-    
+
 }

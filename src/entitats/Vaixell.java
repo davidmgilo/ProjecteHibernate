@@ -6,12 +6,14 @@
 package entitats;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -36,8 +38,8 @@ public class Vaixell {
     @JoinColumn(name = "capita")
     private Pescador _4_capita;
     
-    @Transient
-    private ArrayList<Pescador> _5_treballen = new ArrayList<>();
+    @OneToMany(cascade=javax.persistence.CascadeType.ALL, mappedBy="_4_vaixell") 
+    private List<Pescador> _5_treballen = new ArrayList<>();
     
     @Transient
     private ArrayList<Port> _6_circula = new ArrayList<>();
@@ -74,11 +76,11 @@ public class Vaixell {
         this._4_capita = capita;
     }
 
-    public ArrayList<Pescador> get5_treballen() {
+    public List<Pescador> get5_treballen() {
         return _5_treballen;
     }
 
-    public void addtreballen(Pescador pescador) {
+    public void add5_treballen(Pescador pescador) {
         this._5_treballen.add(pescador);
     }
 

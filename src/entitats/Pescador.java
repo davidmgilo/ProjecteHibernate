@@ -10,8 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -29,7 +30,8 @@ public class Pescador {
     @Column(name="experiencia")
     private int _3_experiencia;
     
-    @Transient
+    @ManyToOne
+    @JoinColumn(name="vaixell_id", nullable=true)
     private Vaixell _4_vaixell;
 
     public int get1_id() {

@@ -402,11 +402,11 @@ public class Controlador {
         });
     }
 
-    private void emplenaComboBox(ArrayList resultSet, JComboBox<Pescador> ComboBox) {
+    private void emplenaComboBox(ArrayList resultSet, JComboBox ComboBox) {
         ComboBox.removeAllItems();
         ComboBox.addItem(null);
         for (Object m : resultSet) {
-            ComboBox.addItem((Pescador) m);
+            ComboBox.addItem(m);
         }
     }
 

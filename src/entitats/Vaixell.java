@@ -38,7 +38,7 @@ public class Vaixell {
     @JoinColumn(name = "capita")
     private Pescador _4_capita;
     
-    @OneToMany(cascade=javax.persistence.CascadeType.ALL, mappedBy="_4_vaixell") 
+    @OneToMany(mappedBy="_4_vaixell") 
     private List<Pescador> _5_treballen = new ArrayList<>();
     
     @Transient
@@ -83,6 +83,10 @@ public class Vaixell {
     public void add5_treballen(Pescador pescador) {
         this._5_treballen.add(pescador);
     }
+    
+    public void del5_treballen(Pescador pescador) {
+        this._5_treballen.remove(pescador);
+    }
 
     public ArrayList<Port> get6_circula() {
         return _6_circula;
@@ -99,6 +103,10 @@ public class Vaixell {
         this._2_nom = nom;
         this._3_anys = anys;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return _2_nom;
+    }
+       
 }

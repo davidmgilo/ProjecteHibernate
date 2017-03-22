@@ -7,6 +7,7 @@ package controlador;
 
 import entitats.Pescador;
 import entitats.Vaixell;
+import exceptions.CapitaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -132,12 +133,12 @@ public class Controlador {
         if (classe == Vaixell.class) {
             //Amagar la columna amb la referència a les relacions
             table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
-            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
+//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
 //            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
         }
 
         if (classe == Pescador.class) {
-            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
+//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
             emplenaComboBox(resultSet, v.getCapitansComboBox());
         }
 
@@ -199,6 +200,9 @@ public class Controlador {
                 try {
                     if (filasel != -1) {
                         if (!"".equals(v.getNomVaixellTextField().getText().trim())) {
+                            if(v.getCapitansComboBox().getSelectedItem() == null){
+                                m.desassignaVaixell((Pescador) v.getVaixellTable().getValueAt(filasel, 3), Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                            }
                             m.modificaVaixell(
                                     Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
                                     v.getNomVaixellTextField().getText().trim(),
@@ -206,6 +210,7 @@ public class Controlador {
                                     (Pescador) v.getCapitansComboBox().getSelectedItem()
                             );
                             carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                            carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
                             netejaVaixells();
                         } else {
                             JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
@@ -215,6 +220,8 @@ public class Controlador {
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(v, "El valor d'anys ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (CapitaException ex){
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -223,15 +230,18 @@ public class Controlador {
         v.getEliminaVaixellButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (filasel != -1) {
-                    m.eliminaVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
-                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                    netejaVaixells();
-                } else {
-                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    if (filasel != -1) {
+                        m.eliminaVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                        netejaVaixells();
+                    } else {
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(v, "El registre té altres de relacionats.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
         });
 
         v.getViewVaixellButton().addActionListener(new ActionListener() {
@@ -287,16 +297,22 @@ public class Controlador {
         v.getAssignaCapitaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (v.getCapitansComboBox().getSelectedItem() != null && filasel != -1) {
-                    m.assignaCapita(
-                            Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
-                            (Pescador) v.getCapitansComboBox().getSelectedItem()
-                    );
-                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                    netejaVaixells();
-                } else {
-                    JOptionPane.showMessageDialog(v, "Cal seleccionar un capità vàlid amb un vaixell seleccionat.", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    if (v.getCapitansComboBox().getSelectedItem() != null && filasel != -1) {
+                        m.assignaCapita(
+                                Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
+                                (Pescador) v.getCapitansComboBox().getSelectedItem()
+                        );
+                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                        carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                        netejaVaixells();
+                    } else {
+                        JOptionPane.showMessageDialog(v, "Cal seleccionar un capità vàlid amb un vaixell seleccionat.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (CapitaException ex) {
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
 
         });
@@ -304,22 +320,26 @@ public class Controlador {
         v.getNoCapitaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (filasel != -1) {
-                    if (v.getVaixellTable().getValueAt(filasel, 3) != null) {
-                        m.assignaCapita(
-                                Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
-                                null
-                        );
-                        carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                        netejaVaixells();
+                try {
+                    if (filasel != -1) {
+                        if (v.getVaixellTable().getValueAt(filasel, 3) != null) {
+                            m.desassignaVaixell((Pescador) v.getVaixellTable().getValueAt(filasel, 3), Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                            m.assignaCapita(
+                                    Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()),
+                                    null
+                            );
+                            carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                            carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                            netejaVaixells();
+                        } else {
+                            JOptionPane.showMessageDialog(v, "Aquest vaixell no té capità!", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
                     } else {
-                        JOptionPane.showMessageDialog(v, "Aquest vaixell no té capità!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-
-                } else {
-                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (CapitaException ex) {
                 }
-
             }
 
         });
@@ -349,15 +369,15 @@ public class Controlador {
         v.getEliminaPescadorButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                   if (filaselPesc != -1) {
+                try {
+                    if (filaselPesc != -1) {
                         m.eliminaPescador(Integer.valueOf(v.getPescadorsTable().getValueAt(filaselPesc, 0).toString()));
                         carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
                         netejaPescadors();
                     } else {
                         JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
-                    } 
-                } catch (Exception ex){
+                    }
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(v, "El registre té altres de relacionats.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }

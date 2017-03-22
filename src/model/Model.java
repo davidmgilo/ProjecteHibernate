@@ -7,6 +7,7 @@ package model;
 
 import entitats.Pescador;
 import entitats.Vaixell;
+import exceptions.CapitaException;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -62,14 +63,19 @@ public class Model {
         actualitzaLlistes();
     }
     
-    public void modificaVaixell(int id, String nom, int anys, Pescador capità){
+    public void modificaVaixell(int id, String nom, int anys, Pescador capità) throws CapitaException{
         Vaixell modificat = null;
         try{
             modificat = (Vaixell) vaixell.obte(id);
             modificat.set2_nom(nom);
             modificat.set3_anys(anys);
-            modificat.set4_capita(capità);
-            vaixell.actualitza(modificat);    
+            vaixell.actualitza(modificat); 
+            if (capità != null){
+               assignaCapita(id,capità); 
+            }else{
+                modificat.set4_capita(capità);
+                vaixell.actualitza(modificat);
+            }            
         }catch(HibernateException e){
             tractaExcepcio(e);
         }
@@ -87,12 +93,20 @@ public class Model {
         actualitzaLlistes();
     }
     
-    public void assignaCapita (int id, Pescador capità){
+    public void assignaCapita (int id, Pescador capità) throws CapitaException{
         Vaixell modificat = null;
         try{
+            if(capità != null && capità.get4_vaixell() != null){
+                throw new CapitaException();
+            }
             modificat = (Vaixell) vaixell.obte(id);
             modificat.set4_capita(capità);
-            vaixell.actualitza(modificat);    
+            if(capità != null){
+                modificat.add5_treballen(capità);
+                capità.set4_vaixell(modificat);
+                pescador.actualitza(capità);
+            }  
+            vaixell.actualitza(modificat);
         }catch(HibernateException e){
             tractaExcepcio(e);
         }
@@ -133,6 +147,21 @@ public class Model {
         actualitzaLlistes();
     }
     
+    public void desassignaVaixell(Pescador p, int id_vaixell){
+        Vaixell modificat = null;
+        try{
+           if(p != null){
+              p.set4_vaixell(null);
+              pescador.actualitza(p);  
+           }                     
+           modificat = (Vaixell) vaixell.obte(id_vaixell);
+           modificat.del5_treballen(p);
+           vaixell.actualitza(modificat);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();        
+    }    
     
     private void tractaExcepcio(HibernateException e) {
         System.out.println(e.getMessage());

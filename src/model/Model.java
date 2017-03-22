@@ -8,6 +8,7 @@ package model;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.VaixellRelacionatException;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -54,7 +55,6 @@ public class Model {
     
     public void creaVaixell(String nom, int anys, Pescador capita){
         Vaixell vai = new Vaixell(nom,anys);
-        vai.set4_capita(capita);
         try{
             vaixell.guarda(vai);
         }catch(HibernateException e){
@@ -82,11 +82,16 @@ public class Model {
         actualitzaLlistes();
     }
     
-    public void eliminaVaixell(int id){
+    public void eliminaVaixell(int id) throws VaixellRelacionatException{
         Vaixell elimina = null;
         try{
             elimina = (Vaixell) vaixell.obte(id);
-            vaixell.elimina(elimina);
+            System.out.println(elimina);
+            if(elimina.get4_capita() == null && elimina.get5_treballen().isEmpty()){
+                vaixell.elimina(elimina);
+            }else{
+                throw new VaixellRelacionatException();
+            }
         }catch(HibernateException e){
             tractaExcepcio(e);
         }
@@ -153,7 +158,7 @@ public class Model {
            if(p != null){
               p.set4_vaixell(null);
               pescador.actualitza(p);  
-           }                     
+           } 
            modificat = (Vaixell) vaixell.obte(id_vaixell);
            modificat.del5_treballen(p);
            vaixell.actualitza(modificat);

@@ -34,6 +34,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Model;
+import vista.TreballenVista;
 import vista.Vista;
 
 /**
@@ -46,6 +47,7 @@ public class Controlador {
     private Model m;
     private int filasel = -1;
     private int filaselPesc = -1;
+    private TreballenVista tv = new TreballenVista();
 
     public Controlador(Vista v, Model m) {
         this.m = m;
@@ -424,6 +426,39 @@ public class Controlador {
                 }
             }
 
+        });
+        
+        v.getTreballenButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(filasel != -1){
+                    tv.setLocationRelativeTo(v);
+                    v.setVisible(false);
+                    tv.setVisible(true);
+                }else{
+                   JOptionPane.showMessageDialog(v, "S'ha de seleccionar un vaixell per poder gestionar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            
+        });
+        
+        tv.getTornaFromPescadorsButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tv.setVisible(false);
+                v.setVisible(true);
+            }
+            
+        });
+        
+        tv.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosed(WindowEvent e) {
+                tv.setVisible(false);
+                v.setVisible(true);
+            }
+            
         });
     }
 

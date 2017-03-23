@@ -3,6 +3,7 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -164,8 +165,8 @@
                               <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
@@ -193,6 +194,11 @@
                                   <Component id="modificaVaixellButton" pref="197" max="32767" attributes="0"/>
                                   <Component id="assignaCapitaButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="treballenButton" min="-2" pref="234" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -234,7 +240,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="noCapitaButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="120" max="32767" attributes="0"/>
+                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <Component id="treballenButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -318,6 +326,11 @@
                 <Property name="text" type="java.lang.String" value="Capit&#xe0;:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="treballenButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestiona treballadors"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pescadorPanel">
@@ -350,10 +363,8 @@
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="modificaPescadorButton" pref="151" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="creaPescadorButton" max="32767" attributes="0"/>
-                                      <Component id="eliminaPescadorButton" pref="151" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="creaPescadorButton" max="32767" attributes="0"/>
+                                  <Component id="eliminaPescadorButton" pref="151" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

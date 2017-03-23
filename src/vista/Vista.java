@@ -56,6 +56,7 @@ public class Vista extends javax.swing.JFrame {
         capitansComboBox = new javax.swing.JComboBox<>();
         noCapitaButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        treballenButton = new javax.swing.JButton();
         pescadorPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pescadorsTable = new javax.swing.JTable();
@@ -68,6 +69,7 @@ public class Vista extends javax.swing.JFrame {
         modificaPescadorButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         buttonPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         buttonPanel.setMaximumSize(new java.awt.Dimension(104, 330));
@@ -158,6 +160,8 @@ public class Vista extends javax.swing.JFrame {
 
         jLabel4.setText("Capità:");
 
+        treballenButton.setText("Gestiona treballadors");
+
         javax.swing.GroupLayout vaixellPanelLayout = new javax.swing.GroupLayout(vaixellPanel);
         vaixellPanel.setLayout(vaixellPanelLayout);
         vaixellPanelLayout.setHorizontalGroup(
@@ -167,7 +171,7 @@ public class Vista extends javax.swing.JFrame {
                     .addGroup(vaixellPanelLayout.createSequentialGroup()
                         .addGap(0, 32, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(vaixellPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, vaixellPanelLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +193,11 @@ public class Vista extends javax.swing.JFrame {
                             .addComponent(creaVaixellButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(eliminaVaixellButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(modificaVaixellButton, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(assignaCapitaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(assignaCapitaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(vaixellPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(treballenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(115, 115, 115)))
                 .addGap(27, 27, 27))
         );
         vaixellPanelLayout.setVerticalGroup(
@@ -221,7 +229,9 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(noCapitaButton)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(treballenButton)
+                .addContainerGap())
         );
 
         jPanel1.add(vaixellPanel, "card2");
@@ -271,9 +281,8 @@ public class Vista extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(modificaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addGroup(pescadorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(creaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(eliminaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))))
+                            .addComponent(creaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eliminaPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         pescadorPanelLayout.setVerticalGroup(
@@ -380,6 +389,7 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JTextField nomVaixellTextField;
     private javax.swing.JPanel pescadorPanel;
     private javax.swing.JTable pescadorsTable;
+    private javax.swing.JButton treballenButton;
     private javax.swing.JPanel vaixellPanel;
     private javax.swing.JTable vaixellTable;
     private javax.swing.JButton viewPescadorsButton;
@@ -477,5 +487,8 @@ public class Vista extends javax.swing.JFrame {
     public JTextField getNomPescadorTextField() {
         return nomPescadorTextField;
     }
-    
+
+    public JButton getTreballenButton() {
+        return treballenButton;
+    }
 }

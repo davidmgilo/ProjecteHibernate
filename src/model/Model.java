@@ -8,6 +8,7 @@ package model;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
@@ -101,10 +102,11 @@ public class Model {
     public void assignaCapita (int id, Pescador capità) throws CapitaException{
         Vaixell modificat = null;
         try{
-            if(capità != null && capità.get4_vaixell() != null){
+            modificat = (Vaixell) vaixell.obte(id);
+            if((capità != null && capità.get4_vaixell() != null) && (capità.get4_vaixell() != modificat)){
                 throw new CapitaException();
             }
-            modificat = (Vaixell) vaixell.obte(id);
+            
             modificat.set4_capita(capità);
             if(capità != null){
                 modificat.add5_treballen(capità);
@@ -128,11 +130,15 @@ public class Model {
         actualitzaLlistes();
     }
     
-    public void eliminaPescador(int id){
+    public void eliminaPescador(int id) throws PescadorRelacionatException{
         Pescador elimina = null;
         try{
             elimina = (Pescador) pescador.obte(id);
-            pescador.elimina(elimina);
+            if(elimina.get4_vaixell() == null){
+                pescador.elimina(elimina);
+            }else{
+                throw new PescadorRelacionatException();
+            }
         }catch(HibernateException e){
             tractaExcepcio(e);
         }

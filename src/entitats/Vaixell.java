@@ -81,7 +81,7 @@ public class Vaixell {
     }
 
     public void add5_treballen(Pescador pescador) {
-        this._5_treballen.add(pescador);
+        if(!this._5_treballen.contains(pescador)) this._5_treballen.add(pescador);
     }
     
     public void del5_treballen(Pescador pescador) {

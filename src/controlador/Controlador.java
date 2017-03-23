@@ -8,6 +8,7 @@ package controlador;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -378,8 +379,8 @@ public class Controlador {
                     } else {
                         JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(v, "El registre té altres de relacionats.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (PescadorRelacionatException ex) {
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

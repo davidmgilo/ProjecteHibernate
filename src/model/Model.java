@@ -8,6 +8,7 @@ package model;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.util.ArrayList;
@@ -195,8 +196,10 @@ public class Model {
             for (Pescador p : pescadors){
                 list.add(p);
             }
-            for (Pescador p : trobat.get5_treballen()){
-                list.remove(p);
+            for(Vaixell v: vaixell.obtenLlista()){
+                for(Pescador p : v.get5_treballen()){
+                    list.remove(p);
+                }
             }
         }catch(HibernateException e){
             tractaExcepcio(e);
@@ -205,9 +208,9 @@ public class Model {
         }        
     }
 
-    public void afegeixTreballadorPescador(Pescador pesc, Integer id_vaixell) throws PescadorRelacionatException{
-        if(pesc == null || pesc.get4_vaixell() != null){
-            throw new PescadorRelacionatException();
+    public void afegeixTreballadorPescador(Pescador pesc, Integer id_vaixell) throws NullException{
+        if(pesc == null){
+            throw new NullException();
         }else{
             Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
             trobat.add5_treballen(pesc);

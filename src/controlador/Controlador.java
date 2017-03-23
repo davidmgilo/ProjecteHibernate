@@ -8,6 +8,7 @@ package controlador;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.awt.event.ActionEvent;
@@ -50,6 +51,7 @@ public class Controlador {
     private Model m;
     private int filasel = -1;
     private int filaselPesc = -1;
+    private int filaselPList = -1;
     private TreballenVista tv = new TreballenVista();
 
     public Controlador(Vista v, Model m) {
@@ -452,6 +454,7 @@ public class Controlador {
         tv.getTornaFromPescadorsButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                v.setLocationRelativeTo(tv);
                 tv.setVisible(false);
                 v.setVisible(true);
             }
@@ -461,6 +464,7 @@ public class Controlador {
         tv.addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosed(WindowEvent e) {
+                v.setLocationRelativeTo(tv);
                 tv.setVisible(false);
                 v.setVisible(true);
             }
@@ -475,10 +479,18 @@ public class Controlador {
                     emplenaJList(tv.getPescadorsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get5_treballen());
                     carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
                     carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
-                }catch(PescadorRelacionatException ex){
+                }catch(NullException ex){
                     JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } 
             }
+        });
+        
+        tv.getPescadorsJList().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                filaselPList = tv.getPescadorsJList().getSelectedIndex();
+            }            
         });
     }
 

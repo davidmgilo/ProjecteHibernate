@@ -25,10 +25,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -435,12 +438,13 @@ public class Controlador {
                     tv.setLocationRelativeTo(v);
                     v.setVisible(false);
                     tv.setVisible(true);
+                    emplenaJList(tv.getPescadorsJList(),(List)v.getVaixellTable().getValueAt(filasel, 4));
                 }else{
                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un vaixell per poder gestionar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
-            
+
         });
         
         tv.getTornaFromPescadorsButton().addActionListener(new ActionListener(){
@@ -469,6 +473,16 @@ public class Controlador {
             ComboBox.addItem(m);
         }
     }
+    
+    private void emplenaJList(JList jlist, List list) {
+        ArrayList arrayList = new ArrayList(list);
+        DefaultListModel lm = new DefaultListModel();
+        for (Object o : arrayList){
+            lm.addElement(o);
+        }
+        jlist.setModel(lm);
+    }
+            
 
     private void netejaVaixells() {
         v.getNomVaixellTextField().setText("");

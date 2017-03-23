@@ -5,7 +5,9 @@
  */
 package vista;
 
+import entitats.Pescador;
 import javax.swing.JButton;
+import javax.swing.JList;
 
 /**
  *
@@ -30,10 +32,15 @@ public class TreballenVista extends javax.swing.JFrame {
     private void initComponents() {
 
         tornaFromPescadorsButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pescadorsJList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tornaFromPescadorsButton.setText("Torna");
+
+        pescadorsJList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(pescadorsJList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,13 +48,19 @@ public class TreballenVista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tornaFromPescadorsButton)
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(207, Short.MAX_VALUE)
+                .addComponent(tornaFromPescadorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(199, 199, 199))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(257, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tornaFromPescadorsButton)
                 .addContainerGap())
         );
@@ -92,11 +105,17 @@ public class TreballenVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Pescador> pescadorsJList;
     private javax.swing.JButton tornaFromPescadorsButton;
     // End of variables declaration//GEN-END:variables
 
     public JButton getTornaFromPescadorsButton() {
         return tornaFromPescadorsButton;
+    }
+
+    public JList<Pescador> getPescadorsJList() {
+        return pescadorsJList;
     }
 
 }

@@ -8,6 +8,7 @@ package model;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.EsCapitaException;
 import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
@@ -212,16 +213,35 @@ public class Model {
         if(pesc == null){
             throw new NullException();
         }else{
-            Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
-            trobat.add5_treballen(pesc);
-            vaixell.actualitza(trobat);
-            pesc.set4_vaixell(trobat);
-            pescador.actualitza(pesc);
+            try{
+                Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
+                trobat.add5_treballen(pesc);
+                vaixell.actualitza(trobat);
+                pesc.set4_vaixell(trobat);
+                pescador.actualitza(pesc);
+            }catch(HibernateException e){
+                tractaExcepcio(e);
+            }
         }
     }
     
     public Vaixell getVaixell(int id){
         return (Vaixell) vaixell.obte(id);
+    }
+
+    public void acomiadaTreballadorPescador(Pescador pesc, Integer vaixell_id) throws EsCapitaException{
+        try{
+            Vaixell trobat = (Vaixell) vaixell.obte(vaixell_id);
+            if(trobat.get4_capita() == pesc){
+                throw new EsCapitaException();
+            }
+            trobat.del5_treballen(pesc);
+            vaixell.actualitza(trobat);
+            pesc.set4_vaixell(null);
+            pescador.actualitza(pesc);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
     }
     
 }

@@ -37,6 +37,7 @@ public class TreballenVista extends javax.swing.JFrame {
         pescadorsJList = new javax.swing.JList<>();
         afegeixPescadorButton = new javax.swing.JButton();
         afegeixPescadorComboBox = new javax.swing.JComboBox<>();
+        eliminaPescadorListButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -46,6 +47,8 @@ public class TreballenVista extends javax.swing.JFrame {
         jScrollPane1.setViewportView(pescadorsJList);
 
         afegeixPescadorButton.setText("Afegeix");
+
+        eliminaPescadorListButton.setText("Elimina");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,7 +60,8 @@ public class TreballenVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(afegeixPescadorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                    .addComponent(afegeixPescadorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(afegeixPescadorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eliminaPescadorListButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -70,14 +74,16 @@ public class TreballenVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(afegeixPescadorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(afegeixPescadorButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(46, 46, 46)
+                        .addComponent(eliminaPescadorListButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)))
                 .addComponent(tornaFromPescadorsButton)
                 .addContainerGap())
         );
@@ -124,6 +130,7 @@ public class TreballenVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton afegeixPescadorButton;
     private javax.swing.JComboBox<String> afegeixPescadorComboBox;
+    private javax.swing.JButton eliminaPescadorListButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Pescador> pescadorsJList;
     private javax.swing.JButton tornaFromPescadorsButton;
@@ -143,6 +150,10 @@ public class TreballenVista extends javax.swing.JFrame {
 
     public JComboBox<String> getAfegeixPescadorComboBox() {
         return afegeixPescadorComboBox;
+    }
+
+    public JButton getEliminaPescadorListButton() {
+        return eliminaPescadorListButton;
     }
 
 }

@@ -8,6 +8,7 @@ package controlador;
 import entitats.Pescador;
 import entitats.Vaixell;
 import exceptions.CapitaException;
+import exceptions.EsCapitaException;
 import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
@@ -457,6 +458,8 @@ public class Controlador {
                 v.setLocationRelativeTo(tv);
                 tv.setVisible(false);
                 v.setVisible(true);
+                carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
             }
             
         });
@@ -467,6 +470,8 @@ public class Controlador {
                 v.setLocationRelativeTo(tv);
                 tv.setVisible(false);
                 v.setVisible(true);
+                carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
             }
             
         });
@@ -477,8 +482,9 @@ public class Controlador {
                 try{
                     m.afegeixTreballadorPescador((Pescador)tv.getAfegeixPescadorComboBox().getSelectedItem(),Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())); 
                     emplenaJList(tv.getPescadorsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get5_treballen());
-                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
-                    carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                    emplenaComboBox(new ArrayList(),tv.getAfegeixPescadorComboBox());
+                    List llista = m.llistarPescadorsNoAfegits(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaComboBox(llista,tv.getAfegeixPescadorComboBox());
                 }catch(NullException ex){
                     JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } 
@@ -492,15 +498,40 @@ public class Controlador {
                 filaselPList = tv.getPescadorsJList().getSelectedIndex();
             }            
         });
+        
+        tv.getEliminaPescadorListButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (filaselPList != -1){
+                    try{
+                        m.acomiadaTreballadorPescador(tv.getPescadorsJList().getSelectedValue(),Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                        emplenaJList(tv.getPescadorsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get5_treballen());
+                        emplenaComboBox(new ArrayList(),tv.getAfegeixPescadorComboBox());
+                        List llista = m.llistarPescadorsNoAfegits(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                        emplenaComboBox(llista,tv.getAfegeixPescadorComboBox());
+                    }catch(EsCapitaException ex){
+                        JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(v, "Selecciona un pescador a acomiadar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        });
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {
         ArrayList resultSet = new ArrayList(result);
         ComboBox.removeAllItems();
-        ComboBox.addItem(null);
-        for (Object m : resultSet) {
-            ComboBox.addItem(m);
+        if(result.isEmpty()){
+            
+        }else{
+            ComboBox.addItem(null);
+            for (Object m : resultSet) {
+                ComboBox.addItem(m);
+            }  
         }
+        
     }
     
     private void emplenaJList(JList jlist, List list) {

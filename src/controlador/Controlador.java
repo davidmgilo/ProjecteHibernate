@@ -439,6 +439,8 @@ public class Controlador {
                     v.setVisible(false);
                     tv.setVisible(true);
                     emplenaJList(tv.getPescadorsJList(),(List)v.getVaixellTable().getValueAt(filasel, 4));
+                    List llista = m.llistarPescadorsNoAfegits(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaComboBox(llista,tv.getAfegeixPescadorComboBox());
                 }else{
                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un vaixell per poder gestionar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -464,9 +466,24 @@ public class Controlador {
             }
             
         });
+        
+        tv.getAfegeixPescadorButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    m.afegeixTreballadorPescador((Pescador)tv.getAfegeixPescadorComboBox().getSelectedItem(),Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())); 
+                    emplenaJList(tv.getPescadorsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get5_treballen());
+                    carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                    carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+                }catch(PescadorRelacionatException ex){
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } 
+            }
+        });
     }
 
-    private void emplenaComboBox(ArrayList resultSet, JComboBox ComboBox) {
+    private void emplenaComboBox(List result, JComboBox ComboBox) {
+        ArrayList resultSet = new ArrayList(result);
         ComboBox.removeAllItems();
         ComboBox.addItem(null);
         for (Object m : resultSet) {
@@ -482,8 +499,7 @@ public class Controlador {
         }
         jlist.setModel(lm);
     }
-            
-
+    
     private void netejaVaixells() {
         v.getNomVaixellTextField().setText("");
         v.getAnysVaixellTextField().setText("");

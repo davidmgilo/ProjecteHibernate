@@ -11,6 +11,7 @@ import exceptions.CapitaException;
 import exceptions.PescadorRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -184,6 +185,40 @@ public class Model {
         }catch(HibernateException e){
             tractaExcepcio(e);
         }        
+    }
+
+    public List llistarPescadorsNoAfegits(int id_vaixell) {
+        Vaixell trobat = null;
+        List list = new ArrayList();
+        try{
+            trobat = (Vaixell) vaixell.obte(id_vaixell);
+            for (Pescador p : pescadors){
+                list.add(p);
+            }
+            for (Pescador p : trobat.get5_treballen()){
+                list.remove(p);
+            }
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }finally{
+            return list;
+        }        
+    }
+
+    public void afegeixTreballadorPescador(Pescador pesc, Integer id_vaixell) throws PescadorRelacionatException{
+        if(pesc == null || pesc.get4_vaixell() != null){
+            throw new PescadorRelacionatException();
+        }else{
+            Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
+            trobat.add5_treballen(pesc);
+            vaixell.actualitza(trobat);
+            pesc.set4_vaixell(trobat);
+            pescador.actualitza(pesc);
+        }
+    }
+    
+    public Vaixell getVaixell(int id){
+        return (Vaixell) vaixell.obte(id);
     }
     
 }

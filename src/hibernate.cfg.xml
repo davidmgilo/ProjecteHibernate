@@ -12,5 +12,6 @@
     <property name="hibernate.show_sql">true</property>
     <mapping class="entitats.Vaixell"/>
     <mapping class="entitats.Pescador"/>
+    <mapping class="entitats.Port"/>
   </session-factory>
 </hibernate-configuration>

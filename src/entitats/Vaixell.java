@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,8 +43,9 @@ public class Vaixell {
     @OneToMany(mappedBy="_4_vaixell") 
     private List<Pescador> _5_treballen = new ArrayList<>();
     
-    @Transient
-    private ArrayList<Port> _6_circula = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name="vaixells_ports", joinColumns=@JoinColumn(name="vaixell_id"), inverseJoinColumns=@JoinColumn(name="port_id"))
+    private List<Port> _6_circula = new ArrayList<>();
 
     public int get1_id() {
         return _1_id;
@@ -88,11 +91,11 @@ public class Vaixell {
         this._5_treballen.remove(pescador);
     }
 
-    public ArrayList<Port> get6_circula() {
+    public List<Port> get6_circula() {
         return _6_circula;
     }
 
-    public void addCircula(Port port) {
+    public void add6_circula(Port port) {
         this._6_circula.add(port);
     }
 

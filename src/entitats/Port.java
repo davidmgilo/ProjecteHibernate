@@ -73,7 +73,10 @@ public class Port {
         this._2_nom = _2_nom;
         this._3_capacitat = _3_capacitat;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return _2_nom;
+    }
     
 }

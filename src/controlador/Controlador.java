@@ -6,6 +6,7 @@
 package controlador;
 
 import entitats.Pescador;
+import entitats.Port;
 import entitats.Vaixell;
 import exceptions.CapitaException;
 import exceptions.EsCapitaException;
@@ -53,6 +54,7 @@ public class Controlador {
     private int filasel = -1;
     private int filaselPesc = -1;
     private int filaselPList = -1;
+    private int filaselPort = -1;
     private TreballenVista tv = new TreballenVista();
 
     public Controlador(Vista v, Model m) {
@@ -60,6 +62,7 @@ public class Controlador {
         this.v = v;
         carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
         carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
+        carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
         v.setVisible(true);
         control();
     }
@@ -70,6 +73,9 @@ public class Controlador {
         }
         if (classe == Pescador.class) {
             filaselPesc = -1;
+        }
+        if (classe == Port.class) {
+            filaselPort = -1;
         }
 
         Vector columnNames = new Vector();
@@ -140,15 +146,7 @@ public class Controlador {
             column.setMaxWidth(250);
         }
 
-        if (classe == Vaixell.class) {
-            //Amagar la columna amb la referència a les relacions
-            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
-//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(4));
-//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
-        }
-
         if (classe == Pescador.class) {
-//            table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3));
             emplenaComboBox(resultSet, v.getCapitansComboBox());
         }
 
@@ -517,6 +515,20 @@ public class Controlador {
                 }
             }
             
+        });
+        
+        v.getViewPortsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                v.getjPanel1().removeAll();
+                v.getjPanel1().repaint();
+                v.getjPanel1().revalidate();
+
+                v.getjPanel1().add(v.getPortPanel());
+                v.getjPanel1().repaint();
+                v.getjPanel1().revalidate();
+            }
+
         });
     }
 

@@ -39,6 +39,7 @@ public class Vista extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         viewPescadorsButton = new javax.swing.JButton();
+        viewPortsButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -67,6 +68,16 @@ public class Vista extends javax.swing.JFrame {
         creaPescadorButton = new javax.swing.JButton();
         eliminaPescadorButton = new javax.swing.JButton();
         modificaPescadorButton = new javax.swing.JButton();
+        portPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        portsTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        nomPortTextField = new javax.swing.JTextField();
+        capacitatPortTextField = new javax.swing.JTextField();
+        creaPortButton = new javax.swing.JButton();
+        eliminaPortButton = new javax.swing.JButton();
+        modificaPortButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -82,6 +93,8 @@ public class Vista extends javax.swing.JFrame {
 
         viewPescadorsButton.setText("Pescador");
 
+        viewPortsButton.setText("Ports");
+
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
         buttonPanelLayout.setHorizontalGroup(
@@ -93,6 +106,7 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(viewPortsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         buttonPanelLayout.setVerticalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +116,8 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(viewVaixellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(viewPescadorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(viewPortsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitButton))
         );
@@ -307,6 +323,77 @@ public class Vista extends javax.swing.JFrame {
 
         jPanel1.add(pescadorPanel, "card3");
 
+        portsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        portsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(portsTable);
+
+        jLabel7.setText("Nom:");
+
+        jLabel8.setText("Capacitat:");
+
+        creaPortButton.setText("Crea");
+
+        eliminaPortButton.setText("Elimina");
+
+        modificaPortButton.setText("Modifica");
+
+        javax.swing.GroupLayout portPanelLayout = new javax.swing.GroupLayout(portPanel);
+        portPanel.setLayout(portPanelLayout);
+        portPanelLayout.setHorizontalGroup(
+            portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(portPanelLayout.createSequentialGroup()
+                .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(portPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(portPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nomPortTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(capacitatPortTextField))
+                        .addGap(34, 34, 34)
+                        .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(modificaPortButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(creaPortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eliminaPortButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        portPanelLayout.setVerticalGroup(
+            portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(portPanelLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(nomPortTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creaPortButton))
+                .addGap(18, 18, 18)
+                .addGroup(portPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(capacitatPortTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminaPortButton))
+                .addGap(18, 18, 18)
+                .addComponent(modificaPortButton)
+                .addContainerGap(203, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(portPanel, "card3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -364,10 +451,13 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JTextField anysVaixellTextField;
     private javax.swing.JButton assignaCapitaButton;
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JTextField capacitatPortTextField;
     private javax.swing.JComboBox<Pescador> capitansComboBox;
     private javax.swing.JButton creaPescadorButton;
+    private javax.swing.JButton creaPortButton;
     private javax.swing.JButton creaVaixellButton;
     private javax.swing.JButton eliminaPescadorButton;
+    private javax.swing.JButton eliminaPortButton;
     private javax.swing.JButton eliminaVaixellButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JTextField experienciaPescadorTextField;
@@ -378,21 +468,29 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton modificaPescadorButton;
+    private javax.swing.JButton modificaPortButton;
     private javax.swing.JButton modificaVaixellButton;
     private javax.swing.JButton noCapitaButton;
     private javax.swing.JTextField nomPescadorTextField;
+    private javax.swing.JTextField nomPortTextField;
     private javax.swing.JTextField nomVaixellTextField;
     private javax.swing.JPanel pescadorPanel;
     private javax.swing.JTable pescadorsTable;
+    private javax.swing.JPanel portPanel;
+    private javax.swing.JTable portsTable;
     private javax.swing.JButton treballenButton;
     private javax.swing.JPanel vaixellPanel;
     private javax.swing.JTable vaixellTable;
     private javax.swing.JButton viewPescadorsButton;
+    private javax.swing.JButton viewPortsButton;
     private javax.swing.JButton viewVaixellButton;
     // End of variables declaration//GEN-END:variables
 
@@ -491,4 +589,37 @@ public class Vista extends javax.swing.JFrame {
     public JButton getTreballenButton() {
         return treballenButton;
     }
+
+    public JTextField getCapacitatPortTextField() {
+        return capacitatPortTextField;
+    }
+
+    public JButton getCreaPortButton() {
+        return creaPortButton;
+    }
+
+    public JButton getEliminaPortButton() {
+        return eliminaPortButton;
+    }
+
+    public JButton getModificaPortButton() {
+        return modificaPortButton;
+    }
+
+    public JTextField getNomPortTextField() {
+        return nomPortTextField;
+    }
+
+    public JTable getPortsTable() {
+        return portsTable;
+    }
+
+    public JButton getViewPortsButton() {
+        return viewPortsButton;
+    }
+
+    public JPanel getPortPanel() {
+        return portPanel;
+    }
+    
 }

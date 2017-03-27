@@ -6,6 +6,7 @@
 package model;
 
 import entitats.Pescador;
+import entitats.Port;
 import entitats.Vaixell;
 import exceptions.CapitaException;
 import exceptions.EsCapitaException;
@@ -29,6 +30,8 @@ public class Model {
     private ClasseDAO<Vaixell> vaixell = new ClasseDAO<>(Vaixell.class, sesion);
     private ArrayList<Pescador> pescadors = new ArrayList();
     private ClasseDAO<Pescador> pescador = new ClasseDAO<>(Pescador.class, sesion);
+    private ArrayList<Port> ports = new ArrayList();
+    private ClasseDAO<Port> port = new ClasseDAO<>(Port.class, sesion);
     
     public Model(){
         actualitzaLlistes();
@@ -37,6 +40,7 @@ public class Model {
     private void actualitzaLlistes(){
         pescadors = (ArrayList) pescador.obtenLlista();
         vaixells = (ArrayList) vaixell.obtenLlista();
+        ports = (ArrayList) port.obtenLlista();
         
 //        for (int i=0;i<vaixells.size();i++){
 //            for (int j = 0; j < pescadors.size(); j++) {
@@ -55,6 +59,10 @@ public class Model {
     
     public ArrayList <Pescador> getPescadors(){
         return pescadors;
+    }
+    
+    public ArrayList <Port> getPorts(){
+        return ports;
     }
     
     public void creaVaixell(String nom, int anys, Pescador capita){

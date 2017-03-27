@@ -530,6 +530,26 @@ public class Controlador {
             }
 
         });
+        
+        v.getCreaPortButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!"".equals(v.getNomPortTextField().getText().trim())) {
+                    try {
+                        m.creaPort(
+                                v.getNomPortTextField().getText().trim(), 
+                                Integer.valueOf(v.getCapacitatPortTextField().getText().trim())
+                        );
+                        carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
+                        netejaPorts();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(v, "El valor de capacitat ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {
@@ -564,6 +584,11 @@ public class Controlador {
     private void netejaPescadors() {
         v.getNomPescadorTextField().setText("");
         v.getExperienciaPescadorTextField().setText("");
+    }
+    
+    private void netejaPorts() {
+        v.getNomPortTextField().setText("");
+        v.getCapacitatPortTextField().setText("");
     }
 
     // Classe "niada" (nested class, clase anidada) usada per ordenar els camps de les classes alfabèticament

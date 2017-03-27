@@ -252,4 +252,13 @@ public class Model {
         }
     }
     
+    public void creaPort(String nom, int capacitat){
+        Port p = new Port(nom,capacitat);
+        try{
+            port.guarda(p);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
 }

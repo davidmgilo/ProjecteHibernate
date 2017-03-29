@@ -514,6 +514,7 @@ public class Controlador {
                         emplenaComboBox(new ArrayList(),tv.getAfegeixPescadorComboBox());
                         List llista = m.llistarPescadorsNoAfegits(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
                         emplenaComboBox(llista,tv.getAfegeixPescadorComboBox());
+                        filaselPList = -1;
                     }catch(EsCapitaException ex){
                         JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -686,6 +687,7 @@ public class Controlador {
                     emplenaJList(cv.getPortsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get6_circula());
                     List llista = m.llistarPortsDisponibles(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
                     emplenaComboBox(llista,cv.getAfegeixPortComboBox());
+                    filaselPortList = -1;
                 }else {
                     JOptionPane.showMessageDialog(v, "Selecciona un port primer.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

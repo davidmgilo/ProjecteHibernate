@@ -663,6 +663,21 @@ public class Controlador {
                 filaselPortList = cv.getPortsJList().getSelectedIndex();
             } 
         });
+        
+        cv.getAfegeixPortButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    m.afegeixPortVaixell((Port)cv.getAfegeixPortComboBox().getSelectedItem(), Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaJList(cv.getPortsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get6_circula());
+                    List llista = m.llistarPortsDisponibles(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaComboBox(llista,cv.getAfegeixPortComboBox());
+                }catch(NullException ex){
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }   
+        });
+        
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {

@@ -299,4 +299,20 @@ public class Model {
             return list;
         }        
     }
+    
+    public void afegeixPortVaixell(Port p, Integer id_vaixell) throws NullException{
+        if(p == null){
+            throw new NullException();
+        }else{
+            try{
+                Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
+                trobat.add6_circula(p);
+                vaixell.actualitza(trobat);
+                p.add4_atraquen(trobat);
+                port.actualitza(p);
+            }catch(HibernateException e){
+                tractaExcepcio(e);
+            }
+        }
+    }
 }

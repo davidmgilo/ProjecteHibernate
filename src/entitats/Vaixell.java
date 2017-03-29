@@ -98,6 +98,10 @@ public class Vaixell {
     public void add6_circula(Port port) {
         this._6_circula.add(port);
     }
+    
+    public void del6_circula(Port port) {
+        this._6_circula.remove(port);
+    }
 
     public Vaixell() {
     }

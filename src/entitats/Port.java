@@ -65,6 +65,10 @@ public class Port {
     public void add4_atraquen(Vaixell vaixell) {
         this._4_atraquen.add(vaixell);
     }
+    
+    public void del4_atraquen(Vaixell vaixell) {
+        this._4_atraquen.remove(vaixell);
+    }
 
     public Port() {
     }

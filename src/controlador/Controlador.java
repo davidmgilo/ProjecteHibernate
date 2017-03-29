@@ -57,6 +57,7 @@ public class Controlador {
     private int filaselPesc = -1;
     private int filaselPList = -1;
     private int filaselPort = -1;
+    private int filaselPortList = -1;
     private TreballenVista tv = new TreballenVista();
     private CirculenVista cv = new CirculenVista();
 
@@ -444,6 +445,7 @@ public class Controlador {
                     tv.setLocationRelativeTo(v);
                     v.setVisible(false);
                     tv.setVisible(true);
+                    filaselPList = -1;
                     emplenaJList(tv.getPescadorsJList(),(List)v.getVaixellTable().getValueAt(filasel, 4));
                     List llista = m.llistarPescadorsNoAfegits(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
                     emplenaComboBox(llista,tv.getAfegeixPescadorComboBox());
@@ -621,6 +623,10 @@ public class Controlador {
                     cv.setLocationRelativeTo(v);
                     v.setVisible(false);
                     cv.setVisible(true);
+                    filaselPortList = -1;
+                    emplenaJList(cv.getPortsJList(),(List)v.getVaixellTable().getValueAt(filasel, 5));
+                    List llista = m.llistarPortsDisponibles(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaComboBox(llista,cv.getAfegeixPortComboBox());
                 }else{
                    JOptionPane.showMessageDialog(v, "S'ha de seleccionar un vaixell per poder gestionar-lo.", "Error", JOptionPane.ERROR_MESSAGE); 
                 }
@@ -648,7 +654,15 @@ public class Controlador {
                 carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
                 carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
             }
-        });        
+        });  
+        
+        cv.getPortsJList().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                filaselPortList = cv.getPortsJList().getSelectedIndex();
+            } 
+        });
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {

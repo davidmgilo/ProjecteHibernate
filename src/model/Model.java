@@ -281,4 +281,22 @@ public class Model {
         }
         actualitzaLlistes();
     }
+    
+    public List llistarPortsDisponibles(int id_vaixell) {
+        Vaixell trobat = null;
+        List list = new ArrayList();
+        try{
+            trobat = (Vaixell) vaixell.obte(id_vaixell);
+            for (Port p : ports){
+                list.add(p);
+            }
+            for(Port p: trobat.get6_circula()){
+                list.remove(p);
+            }
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }finally{
+            return list;
+        }        
+    }
 }

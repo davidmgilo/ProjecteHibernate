@@ -203,13 +203,16 @@
                                   <Component id="assignaCapitaButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="treballenButton" min="-2" pref="234" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="treballenButton" pref="234" max="32767" attributes="0"/>
+                          <Component id="circulenButton" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -248,7 +251,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="noCapitaButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <Component id="circulenButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="treballenButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -337,6 +342,11 @@
             <Component class="javax.swing.JButton" name="treballenButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestiona treballadors"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="circulenButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestiona Ports"/>
               </Properties>
             </Component>
           </SubComponents>

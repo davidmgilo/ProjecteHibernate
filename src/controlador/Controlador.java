@@ -41,6 +41,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Model;
+import vista.CirculenVista;
 import vista.TreballenVista;
 import vista.Vista;
 
@@ -57,10 +58,13 @@ public class Controlador {
     private int filaselPList = -1;
     private int filaselPort = -1;
     private TreballenVista tv = new TreballenVista();
+    private CirculenVista cv = new CirculenVista();
 
     public Controlador(Vista v, Model m) {
         this.m = m;
         this.v = v;
+        tv.setTitle("Gestiona treballadors");
+        cv.setTitle("Gestiona ports");
         carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
         carregaTaula(m.getPescadors(), v.getPescadorsTable(), Pescador.class);
         carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
@@ -610,6 +614,41 @@ public class Controlador {
             
         });
         
+        v.getCirculenButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(filasel != -1){
+                    cv.setLocationRelativeTo(v);
+                    v.setVisible(false);
+                    cv.setVisible(true);
+                }else{
+                   JOptionPane.showMessageDialog(v, "S'ha de seleccionar un vaixell per poder gestionar-lo.", "Error", JOptionPane.ERROR_MESSAGE); 
+                }
+            }
+        });
+        
+        cv.getTornaFromPortsButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                v.setLocationRelativeTo(cv);
+                cv.setVisible(false);
+                v.setVisible(true);
+                carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
+            }
+            
+        });
+        
+        cv.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosed(WindowEvent e) {
+                v.setLocationRelativeTo(cv);
+                cv.setVisible(false);
+                v.setVisible(true);
+                carregaTaula(m.getVaixells(), v.getVaixellTable(), Vaixell.class);
+                carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
+            }
+        });        
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {

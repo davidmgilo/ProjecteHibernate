@@ -58,6 +58,7 @@ public class Vista extends javax.swing.JFrame {
         noCapitaButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         treballenButton = new javax.swing.JButton();
+        circulenButton = new javax.swing.JButton();
         pescadorPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pescadorsTable = new javax.swing.JTable();
@@ -178,6 +179,8 @@ public class Vista extends javax.swing.JFrame {
 
         treballenButton.setText("Gestiona treballadors");
 
+        circulenButton.setText("Gestiona Ports");
+
         javax.swing.GroupLayout vaixellPanelLayout = new javax.swing.GroupLayout(vaixellPanel);
         vaixellPanel.setLayout(vaixellPanelLayout);
         vaixellPanelLayout.setHorizontalGroup(
@@ -209,12 +212,14 @@ public class Vista extends javax.swing.JFrame {
                             .addComponent(creaVaixellButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(eliminaVaixellButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(modificaVaixellButton, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(assignaCapitaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(vaixellPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(treballenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115)))
+                            .addComponent(assignaCapitaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(27, 27, 27))
+            .addGroup(vaixellPanelLayout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(treballenButton, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                    .addComponent(circulenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         vaixellPanelLayout.setVerticalGroup(
             vaixellPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +250,9 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(noCapitaButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(circulenButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(treballenButton)
                 .addContainerGap())
         );
@@ -453,6 +460,7 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JTextField capacitatPortTextField;
     private javax.swing.JComboBox<Pescador> capitansComboBox;
+    private javax.swing.JButton circulenButton;
     private javax.swing.JButton creaPescadorButton;
     private javax.swing.JButton creaPortButton;
     private javax.swing.JButton creaVaixellButton;
@@ -620,6 +628,10 @@ public class Vista extends javax.swing.JFrame {
 
     public JPanel getPortPanel() {
         return portPanel;
+    }
+
+    public JButton getCirculenButton() {
+        return circulenButton;
     }
     
 }

@@ -678,6 +678,20 @@ public class Controlador {
             }   
         });
         
+        cv.getEliminaPortListButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(filaselPortList != -1){
+                    m.eliminaPortVaixell((Port)cv.getPortsJList().getSelectedValue(), Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaJList(cv.getPortsJList(),m.getVaixell(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString())).get6_circula());
+                    List llista = m.llistarPortsDisponibles(Integer.valueOf(v.getVaixellTable().getValueAt(filasel, 0).toString()));
+                    emplenaComboBox(llista,cv.getAfegeixPortComboBox());
+                }else {
+                    JOptionPane.showMessageDialog(v, "Selecciona un port primer.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        });        
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {

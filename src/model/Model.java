@@ -315,4 +315,16 @@ public class Model {
             }
         }
     }
+    
+    public void eliminaPortVaixell(Port p, Integer id_vaixell) {
+        try{
+            Vaixell trobat = (Vaixell) vaixell.obte(id_vaixell);
+            trobat.del6_circula(p);
+            vaixell.actualitza(trobat);
+            p.del4_atraquen(trobat);
+            port.actualitza(p);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+    }
 }

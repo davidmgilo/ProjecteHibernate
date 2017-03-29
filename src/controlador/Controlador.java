@@ -583,6 +583,33 @@ public class Controlador {
             }
             
         });
+        
+        v.getModificaPortButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (filaselPort != -1){
+                        if (!"".equals(v.getNomPortTextField().getText().trim())){
+                            m.modificaPort(
+                                    Integer.valueOf(v.getPortsTable().getValueAt(filaselPort, 0).toString()),
+                                    v.getNomPortTextField().getText(),
+                                    Integer.valueOf(v.getCapacitatPortTextField().getText())
+                            );
+                            carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
+                            netejaPorts();
+                        } else{
+                           JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE); 
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder modificar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(v, "El valor de capacitat ha de ser un enter", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        });
+        
     }
 
     private void emplenaComboBox(List result, JComboBox ComboBox) {

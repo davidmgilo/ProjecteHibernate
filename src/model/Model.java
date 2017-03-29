@@ -43,15 +43,6 @@ public class Model {
         vaixells = (ArrayList) vaixell.obtenLlista();
         ports = (ArrayList) port.obtenLlista();
         
-//        for (int i=0;i<vaixells.size();i++){
-//            for (int j = 0; j < pescadors.size(); j++) {
-//                if(vaixells.get(i).get4_capita() != null){
-//                    if(vaixells.get(i).get4_capita().get1_id()==pescadors.get(j).get1_id()){
-//                        vaixells.get(i).set4_capita(pescadors.get(j));
-//                    }
-//                } 
-//            }
-//        }
     }
 
     public ArrayList<Vaixell> getVaixells() {
@@ -272,6 +263,19 @@ public class Model {
             }else{
                 throw new PortRelacionatException();
             }
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    public void modificaPort(int id, String nom, int capacitat){
+        Port modificat = null;
+        try{
+            modificat = (Port) port.obte(id);
+            modificat.set2_nom(nom);
+            modificat.set3_capacitat(capacitat);
+            port.actualitza(modificat);    
         }catch(HibernateException e){
             tractaExcepcio(e);
         }

@@ -12,6 +12,7 @@ import exceptions.CapitaException;
 import exceptions.EsCapitaException;
 import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
+import exceptions.PortRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -549,6 +550,38 @@ public class Controlador {
                     JOptionPane.showMessageDialog(v, "El valor del nom no pot ser buit", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        });
+        
+        v.getPortsTable().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                filaselPort = v.getPortsTable().getSelectedRow();
+                if (filaselPort == -1){
+                    netejaPorts();
+                }else {
+                    v.getNomPortTextField().setText(v.getPortsTable().getValueAt(filaselPort, 1).toString());
+                    v.getCapacitatPortTextField().setText(v.getPortsTable().getValueAt(filaselPort, 2).toString());
+                }
+            }            
+        });
+        
+        v.getEliminaPortButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (filaselPort != -1) {
+                        m.eliminaPort(Integer.valueOf(v.getPortsTable().getValueAt(filaselPort, 0).toString()));
+                        carregaTaula(m.getPorts(), v.getPortsTable(), Port.class);
+                        netejaPorts();
+                    } else {
+                        JOptionPane.showMessageDialog(v, "S'ha de seleccionar un registre per poder borrar-lo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (PortRelacionatException ex) {
+                    JOptionPane.showMessageDialog(v, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
         });
     }
 

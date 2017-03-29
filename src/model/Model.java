@@ -12,6 +12,7 @@ import exceptions.CapitaException;
 import exceptions.EsCapitaException;
 import exceptions.NullException;
 import exceptions.PescadorRelacionatException;
+import exceptions.PortRelacionatException;
 import exceptions.VaixellRelacionatException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class Model {
         try{
             elimina = (Vaixell) vaixell.obte(id);
             System.out.println(elimina);
-            if(elimina.get4_capita() == null && elimina.get5_treballen().isEmpty()){
+            if(elimina.get4_capita() == null && elimina.get5_treballen().isEmpty() && elimina.get6_circula().isEmpty()){
                 vaixell.elimina(elimina);
             }else{
                 throw new VaixellRelacionatException();
@@ -256,6 +257,21 @@ public class Model {
         Port p = new Port(nom,capacitat);
         try{
             port.guarda(p);
+        }catch(HibernateException e){
+            tractaExcepcio(e);
+        }
+        actualitzaLlistes();
+    }
+    
+    public void eliminaPort(int id) throws PortRelacionatException{
+        Port elimina = null;
+        try{
+            elimina = (Port) port.obte(id);
+            if(elimina.get4_atraquen().isEmpty()){
+                port.elimina(elimina);
+            }else{
+                throw new PortRelacionatException();
+            }
         }catch(HibernateException e){
             tractaExcepcio(e);
         }
